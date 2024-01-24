@@ -2,10 +2,10 @@
 
 echo "==============================================================================="
 echo "Starting Aerospike Server!"
+docker pull aerospike/aerospike-server-enterprise
 docker run -tid --rm --name aerospike -p 3000:3000 -p 3001:3001 -p 3002:3002 \
     -v $(pwd)/aerospike:/etc/aerospike/ \
     -v $(pwd)/log:/var/log/aerospike/ \
-    -e "features.conf=/etc/aerospike/features.conf" \
     aerospike/aerospike-server-enterprise
 
 sleep 10;
@@ -20,6 +20,7 @@ aerospikeIp=$(docker inspect -f '{{.NetworkSettings.IPAddress }}' aerospike)
 echo "Aerospike Server is up and running on: $aerospikeIp"
 echo "==============================================================================="
 echo "Starting Graph Server!"
+docker pull aerospike/aerospike-graph-service
 docker run -p8182:8182 -id --rm --name graph -e aerospike.client.namespace="test" \
     -e aerospike.client.host="$aerospikeIp:3000, $aerospikeIp:3000" \
     -e aerospike.graph.index.vertex.properties=property1,property2 \
@@ -45,5 +46,5 @@ echo "printf(\"%s vertices are loaded!\n\", g.V().toList().size())" >> gremlin/l
 
 echo "g = AnonymousTraversalSource.traversal().withRemote(DriverRemoteConnection.using(\"$graphIp\", 8182, \"g\"))" > gremlin/define.groovy
  
-
+docker pull tinkerpop/gremlin-console
 docker run --rm -it -v $(pwd)/gremlin/:/opt/air-routes/ --name gremlin tinkerpop/gremlin-console -i /opt/air-routes/load.groovy
