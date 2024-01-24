@@ -7,6 +7,6 @@ gremlin/*
 # exclude logs
 log/*
 
-# exclude mac hidden files
+# exclude hidden files
 *.DS_Store*
-
+*.groovy.swp*
