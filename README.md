@@ -9,8 +9,7 @@ This repository allows you to set up an Aerospike Graph Server and run simple Gr
 1. Clone this repository to your local machine.
 2. Copy your features.conf (Containing the aerospike license) into the `./aerospike/` directory.
 3. Change the current directory to the root of this repository. 
-4. Run 'chmod `744 *.sh`.
-5. Run './start.sh'
+4. Run './start.sh'
 
 This should:
 - Start an Aerospike Server
