@@ -4,4 +4,9 @@ aerospike/features.conf
 # exclude scripts
 gremlin/*
 
+# exclude logs
+log/*
+
+# exclude mac hidden files
 *.DS_Store*
+
